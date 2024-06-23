@@ -26,8 +26,6 @@ let lookup env k =
     with Not_found -> failwith "the variable is not in scope: " ^ k
 ;;
 
-(* subst = mapping from String (tvar) to type *)
-
 (* String : Type *)
 type subst_set = t TypeMap.t;;
 let empty_subst_set = TypeMap.empty;;
@@ -60,7 +58,7 @@ let rec unify t1 t2 =
     | _ -> raise (TypeError "Cannot unify types")
 
 and (|->) v t =
-    (* Binding operation from a type variable to a type *)
+    (* Binding operation from a type variable to a type (or type variable) *)
     if t = TVar v then empty_subst_set
     else if occurs_check v t then raise (TypeError "Occurs check failed")
     else TypeMap.singleton v t
@@ -73,4 +71,4 @@ and occurs_check v t =
     | _ -> false
 ;;
 
-(* Instanciation is like the final substitution to replace all monotypes type variables *)
+(* Instantiation is like the final substitution to replace all monotypes type variables *)

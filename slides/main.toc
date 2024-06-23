@@ -1,6 +1,6 @@
 \beamer@sectionintoc {1}{Présentation générale}{2}{0}{1}
-\beamer@subsectionintoc {1}{1}{Grammaire}{3}{0}{1}
-\beamer@subsectionintoc {1}{2}{HM Typesystem}{4}{0}{1}
-\beamer@subsectionintoc {1}{3}{RD Parser}{5}{0}{1}
-\beamer@sectionintoc {2}{Ma démonstration}{6}{0}{2}
-\beamer@sectionintoc {3}{Et après ?}{7}{0}{3}
+\beamer@sectionintoc {2}{Définitions}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{Parsing}{4}{0}{2}
+\beamer@subsectionintoc {2}{2}{Théorie des types}{5}{0}{2}
+\beamer@sectionintoc {3}{Ma démonstration}{9}{0}{3}
+\beamer@sectionintoc {4}{Et après ?}{10}{0}{4}

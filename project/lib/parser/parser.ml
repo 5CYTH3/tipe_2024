@@ -21,7 +21,7 @@ type traversal = {
     env: Types.env;
     expr: expr;
     rest: Token.t list;
-    scheme: Types.scheme;
+    t: Types.scheme;
 }
 
 (* Parsing expressions beginning with the character `(` *)
