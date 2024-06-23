@@ -16,6 +16,12 @@ type expr =
 type ast = expr list
 [@@deriving show]
 
+type traversal = {
+    expr: expr;
+    rest: Token.t list;
+    t: Types.;
+}
+
 (* Parsing expressions beginning with the character `(` *)
 let rec parse_lists (program: Token.t list): expr * Token.t list =
     match program with

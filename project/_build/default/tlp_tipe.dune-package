@@ -71,6 +71,7 @@
  (archives (byte token/token.cma) (native token/token.cmxa))
  (plugins (byte token/token.cma) (native token/token.cmxs))
  (native_archives token/token.a)
+ (requires ppx_deriving.runtime)
  (main_module_name Token)
  (modes byte native)
  (modules

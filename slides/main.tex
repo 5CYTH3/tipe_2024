@@ -1,0 +1,93 @@
+\documentclass{beamer}
+\usetheme{Berkeley}
+\definecolor{UBCblue}{RGB}{221,160,221} % UBC Blue (primary)
+\usecolortheme[named=UBCblue]{structure}
+
+\usepackage{ebproof}
+\usepackage{forest}
+\usepackage{simplebnf}
+
+%Information to be included in the title page:
+\title{Inférence de types et Parsing dans la même passe}
+\author{Enogad Le Biavant--Frederic}
+\institute{Alain René Lesage MP2I}
+\date{2024}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Présentation générale}
+\begin{frame}
+\frametitle{Présentation générale}
+Les principes ont l'air quand même assez similaires... \\
+(defun f (x) + x 1)
+
+\[
+\begin{forest}
+		[Func [f] [$x:\alpha$] [$Expr:\beta$ [+ [x] [1]]]]
+\end{forest}
+\]
+
+\end{frame}
+
+\subsection{Grammaire}
+\begin{frame}
+\frametitle{Grammaire}
+
+\begin{bnf}
+		$program$ ::= $expr$;;
+		$expr$    ::= | $list$ | $atom$ | $function$;;
+		$list$    ::= '(' [\{$expr$\}] ')';;
+		$atom$    ::= | $id$ | $literal$;;
+		$literal$ ::= | string | int | bool;;
+		$function$::= '(' 'defun' $id$ '(' [\{$id$\}] ')' $expr$ ')';;
+\end{bnf} \end{frame}
+\subsection{HM Typesystem}
+\begin{frame}
+\frametitle{Hindley-Milner Typesystem}
+\[
+\begin{prooftree}
+		\hypo{x:\sigma\in\Gamma}
+		\infer1[var]{\Gamma \vdash x:\sigma}
+\end{prooftree}
+\]
+\newline
+\[
+\begin{prooftree}
+		\hypo{\Gamma, x:\tau \vdash e:\tau'}
+		\infer1[abs]{\Gamma \vdash \lambda x.e:\tau \to \tau'}
+\end{prooftree}
+\]
+\newline
+\[
+\begin{prooftree}
+		\hypo{\Gamma \vdash f:\tau \to \tau'}
+		\hypo{\Gamma \vdash e : \tau}
+		\infer2[app]{\Gamma \vdash f\ e : \tau'}
+\end{prooftree}
+\]
+\end{frame}
+
+\subsection{RD Parser}
+\begin{frame}
+\frametitle{Parser Récursif Descendant}
+
+\end{frame}
+
+\section{Ma démonstration}
+\begin{frame}
+\frametitle{Ma démonstration}
+\end{frame}
+
+\section{Et après ?}
+\begin{frame}
+\frametitle{Et après ?}
+\begin{itemize}
+		\item<1-> Est-ce que il y a un réel impact sur la complexité temporelle ?
+		\item<2->Pour quelles grammaires est-ce possible ?
+		\item<3->Formalisation de cet outil ?
+\end{itemize}
+\end{frame}
+
+\end{document}

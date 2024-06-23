@@ -19,7 +19,7 @@ package "parser" (
 package "token" (
   directory = "token"
   description = ""
-  requires = ""
+  requires = "ppx_deriving.runtime"
   archive(byte) = "token.cma"
   archive(native) = "token.cmxa"
   plugin(byte) = "token.cma"
