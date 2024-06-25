@@ -1,22 +1,36 @@
 \documentclass{report}
 
+\usepackage[backend=biber]{biblatex}
+\addbibresource{sample.bib}
+
 \title{
-		{}\\
+		{MCOT 2024}\\
 		{\large Lycée Alain René Lesage}\\
 }
 \begin{document}
 \maketitle
 
-\chapter{Positionnement thématique}
+\section{Positionnement thématique}
+INFORMATIQUE (Théorie des Types), INFORMATIQUE (Théorie des automates), INFORMATIQUE (Inférence de types)
 
-\chapter{Mots Clés}
+\section{Mots Clés}
+Automates typés, inférence et parsing en une passe, typage dynamique
+Typed automatas, one-pass type inference and parsing, dynamic typing
 
-\chapter{Bibliographie commentée}
+% SOA
+\section{Bibliographie commentée}
 
-\chapter{Objectifs du TIPE}
+\section{Problématique retenue}
+Il s'agit de tirer profit des similitudes entre algorithmes d'inférence de types et méthodes d'analyse syntaxique pour les fusionner, étudier de potentiels changement de la complexité totale du programme en comparaison avec une analyse en deux étapes, puis proposer un formalisme pour ce genre d'objet et leur correction, terminaison, ainsi que déterminer les grammaires compatibles.
 
-\chapter{Abstract}
+\section{Objectifs du TIPE}
+Je me propose : \\
+- de coder une preuve de concept en utilisant la grammaire d'un dialecte de lisp ainsi qu'un algorithme d'inférence de type \\
+- d'approfondir mes connaissances sur la théorie des types \\
 
-\chapter{Références bilbiographiques}
+\section{Abstract}
+
+\section{Références bilbiographiques}
+\printbibliography 
 
 \end{document}

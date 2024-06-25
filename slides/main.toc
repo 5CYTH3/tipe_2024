@@ -4,3 +4,4 @@
 \beamer@subsectionintoc {2}{2}{Théorie des types}{5}{0}{2}
 \beamer@sectionintoc {3}{Ma démonstration}{9}{0}{3}
 \beamer@sectionintoc {4}{Et après ?}{10}{0}{4}
+\beamer@sectionintoc {5}{Annexe}{13}{0}{5}

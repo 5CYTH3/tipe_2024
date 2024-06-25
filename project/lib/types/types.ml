@@ -9,6 +9,7 @@ type t =
     | Func of t list * t
     [@@deriving show];;
 
+(* Here the list shows the bound variables of the expr *)
 type scheme = Forall of string list * t;;
 
 exception TypeError of string
@@ -72,3 +73,26 @@ and occurs_check v t =
 ;;
 
 (* Instantiation is like the final substitution to replace all monotypes type variables *)
+
+let rec ftv_ty = function
+  | TVar n -> [n]
+  | Int | Str | Bool | List _ -> []
+  | Func (args, ret) -> List.flatten (List.map ftv_ty args) @ ftv_ty(ret)
+
+let ftv_scheme (Forall (vars, t)) =
+  List.filter (fun x -> not (List.mem x vars)) (ftv_ty t)
+
+let ftv_env env =
+  TypeMap.fold (fun _ s acc -> List.append (ftv_scheme s) acc) env []
+
+let generalize env t =
+  let vars = List.filter (fun v -> not (List.mem v (ftv_env env))) (ftv_ty t) in
+  Forall (vars, t)
+
+let rec fresh_tyvar =
+  let counter = ref 0 in
+  fun () -> incr counter; TVar ("t" ^ string_of_int !counter)
+
+let rec instantiate (Forall (vars, t)) =
+  let subst = List.fold_left (fun s v -> TypeMap.add v (fresh_tyvar ()) s) TypeMap.empty vars in
+  substitute subst t
