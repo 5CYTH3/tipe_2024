@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.6.17)  25 JUN 2024 10:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.6.17)  25 JUN 2024 15:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1024,7 +1024,7 @@ Package: ninecolors 2022-02-13 v2022D Select colors with proper color contrast
  (./main.nav) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-<./res/repo.png, id=84, 933.4875pt x 179.67125pt>
+<./res/repo.png, id=85, 933.4875pt x 179.67125pt>
 File: ./res/repo.png Graphic file (type png)
 <use ./res/repo.png>
 Package pdftex.def Info: ./res/repo.png  used on input line 34.
@@ -1077,7 +1077,7 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 [4
 
 ]
-<./res/russell.jpg, id=188, 1204.5pt x 1570.86874pt>
+<./res/russell.jpg, id=189, 1204.5pt x 1570.86874pt>
 File: ./res/russell.jpg Graphic file (type jpg)
 <use ./res/russell.jpg>
 Package pdftex.def Info: ./res/russell.jpg  used on input line 104.
@@ -1090,15 +1090,109 @@ Package pdftex.def Info: ./res/russell.jpg  used on input line 104.
 
 ] [8
 
-] [9
+]
+\openout4 = `main.vrb'.
 
-] [10
+ (./main.vrb (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+) (/usr/share/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2024/02/21 1.10 listings language file
+)
+LaTeX Font Info:    Trying to load font information for TS1+cmss on input line 3.
+ (/usr/share/texmf-dist/tex/latex/base/ts1cmss.fd
+File: ts1cmss.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+Overfull \hbox (228.29277pt too wide) in paragraph at lines 3--4
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+LaTeX Font Info:    Trying to load font information for OML+cmss on input line 5.
+LaTeX Font Info:    No file OMLcmss.fd. on input line 5.
+
+LaTeX Font Warning: Font shape `OML/cmss/m/n' undefined
+(Font)              using `OML/cmm/m/it' instead
+(Font)              for symbol `textgreater' on input line 5.
+
+
+Overfull \hbox (156.02202pt too wide) in paragraph at lines 8--9
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (77.1812pt too wide) in paragraph at lines 16--17
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+)
+Overfull \vbox (3.071pt too high) detected at line 203
+ []
+
+[9
+
+{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [10
 
 ] [11
 
 ] [12
 
-] [13
+]
+\openout4 = `main.vrb'.
+
+ (./main.vrb
+Overfull \hbox (228.29277pt too wide) in paragraph at lines 10--11
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+) [13
+
+]
+\openout4 = `main.vrb'.
+
+ (./main.vrb
+Overfull \hbox (313.70366pt too wide) in paragraph at lines 5--6
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (50.90092pt too wide) in paragraph at lines 6--7
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (202.0125pt too wide) in paragraph at lines 7--8
+[][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (149.45195pt too wide) in paragraph at lines 9--10
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (83.75127pt too wide) in paragraph at lines 12--13
+[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (31.19072pt too wide) in paragraph at lines 13--15
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (215.15263pt too wide) in paragraph at lines 16--17
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (188.87236pt too wide) in paragraph at lines 18--19
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+)
+Overfull \vbox (43.87102pt too high) detected at line 257
+ []
+
+[14
 
 ]
 \tf@nav=\write7
@@ -1123,18 +1217,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 0D87F82F840D49AFEB54FA627917DBE6;808.
  ) 
 Here is how much of TeX's memory you used:
- 40960 strings out of 476076
- 902245 string characters out of 5793775
- 1961187 words of memory out of 5000000
- 62413 multiletter control sequences out of 15000+600000
- 566727 words of font info for 64 fonts, out of 8000000 for 9000
+ 41114 strings out of 476076
+ 904569 string characters out of 5793775
+ 1980187 words of memory out of 5000000
+ 62548 multiletter control sequences out of 15000+600000
+ 567810 words of font info for 67 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  143i,16n,140p,1602b,1819s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on main.pdf (13 pages, 408236 bytes).
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfsi1095.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb>
+Output written on main.pdf (14 pages, 427968 bytes).
 PDF statistics:
- 531 PDF objects out of 1000 (max. 8388607)
- 487 compressed objects within 5 object streams
- 34 named destinations out of 1000 (max. 500000)
+ 579 PDF objects out of 1000 (max. 8388607)
+ 528 compressed objects within 6 object streams
+ 36 named destinations out of 1000 (max. 500000)
  109 words of extra memory for PDF output out of 10000 (max. 10000000)
 

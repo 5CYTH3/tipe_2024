@@ -16,10 +16,12 @@ type expr =
 type ast = expr list
 [@@deriving show]
 
+(* Return type of most of the functions making up the parser *)
 type traversal = {
+    env: Types.env;
     expr: expr;
     rest: Token.t list;
-    t: Types.;
+    t: Types.scheme;
 }
 
 (* Parsing expressions beginning with the character `(` *)
@@ -34,6 +36,7 @@ let rec parse_lists (program: Token.t list): expr * Token.t list =
         | _ -> failwith "Missing closing parenthesis"
     end
     | _ -> failwith "Unexpected Token, expected LParen." 
+
 and parse_list_content (program: Token.t list): expr * Token.t list =
     match program with
     (* Handling the case of an empty list `()` *)
@@ -48,6 +51,7 @@ and parse_list_content (program: Token.t list): expr * Token.t list =
         | List l -> (List (atom :: l), rest')
         | Function _ | Atom _ -> failwith "Expected to find a list"
     end
+
 and parse_functions (program: Token.t list): expr * Token.t list = 
     match program with
     | Id i :: t -> 
@@ -55,6 +59,7 @@ and parse_functions (program: Token.t list): expr * Token.t list =
             let (body, rest') = parse_atoms rest in 
             (Function (i, args, body), rest')
     | _ -> failwith "Expected to find an ID as function identifier."
+
 and parse_args_list (program: Token.t list): string list * Token.t list = 
     match program with
     | LParen :: t -> begin
@@ -65,6 +70,7 @@ and parse_args_list (program: Token.t list): string list * Token.t list =
             | _ -> failwith "Expected a closing parenthesis"
     end
     | _ -> failwith "Expected a list of arguments"
+
 and parse_arg_list_content (program: Token.t list): string list * Token.t list = 
     match program with
     (* No arguments *)
@@ -73,10 +79,13 @@ and parse_arg_list_content (program: Token.t list): string list * Token.t list =
         let (arg, rest) = parse_arg program in
         let (arg_tail, rest') = parse_arg_list_content rest in
         arg::arg_tail, rest'
+
+(* Parse a single function argument *)
 and parse_arg (program: Token.t list): string * Token.t list =
     match program with
     | Id i :: t -> (i, t)
     | _ -> failwith "Unexpected token, expected an identifier"
+
 and parse_atoms (program: Token.t list): expr * Token.t list = 
     match program with
     | LParen :: _ -> parse_lists program

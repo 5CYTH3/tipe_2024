@@ -86,10 +86,13 @@ and parse_arg (program: Token.t list): string * Token.t list =
     | Id i :: t -> (i, t)
     | _ -> failwith "Unexpected token, expected an identifier"
 
-and parse_atoms (program: Token.t list): expr * Token.t list = 
+and parse_atoms (program: Token.t list) (env: Types.env): expr * Token.t list = 
     match program with
     | LParen :: _ -> parse_lists program
-    | Id i :: t -> (Atom (Id i), t)
+    | Id i :: t -> begin
+        let s = Types.lookup env i in
+        { expr: Atom (Id i); rest: t; env; t: Types.instantiate s; }
+    end
     | Literal l :: t -> begin
         match l with
         | Int i -> (Atom (Int i), t)
