@@ -1,4 +1,4 @@
 (library
  (name types)
- (preprocess (pps ppx_deriving.show))
- (public_name tlp_tipe.types))
+ (public_name tlp_tipe.types)
+ (preprocess (pps ppx_deriving.show)))

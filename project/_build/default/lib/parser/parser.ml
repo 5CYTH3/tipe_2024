@@ -18,46 +18,69 @@ type ast = expr list
 
 (* Return type of most of the functions making up the parser *)
 type traversal = {
+    
+    (* Type environment *)
     env: Types.env;
-    expr: expr;
+
+    (* Current subtree built and about to be propagated to higher nodes *)
+    expr: expr; 
+
+    (* The tokens so far left *)
     rest: Token.t list;
+
+    (* Type of the currently parsed expr (node) *)
+    (* WARNING: Should this field be a type scheme ? *)
     t: Types.scheme;
-}
+} 
 
 (* Parsing expressions beginning with the character `(` *)
-let rec parse_lists (program: Token.t list): expr * Token.t list =
+let rec parse_lists (program: Token.t list) (env: Types.env): traversal =
     match program with
-    | LParen :: t -> begin
+    | LParen :: tail -> begin
         (* Enters the parsing list "state" *)
-        let (expr, rest) = parse_list_content t in 
+        let { expr; rest; env; t; } = parse_list_content tail env in 
+
         match rest with
         (* Deleting the trailing parenthese *)
-        | RParen :: t -> (expr, t)
+        | RParen :: tail -> { expr = expr; rest = tail; t; env; }
+
         | _ -> failwith "Missing closing parenthesis"
     end
     | _ -> failwith "Unexpected Token, expected LParen." 
 
-and parse_list_content (program: Token.t list): expr * Token.t list =
+and parse_list_content (program: Token.t list) (env: Types.env): traversal =
     match program with
+
     (* Handling the case of an empty list `()` *)
-    | RParen :: t -> (List [], RParen :: t)
+    (* Here, empty list has type int which is not ok... should introduce nil type *)
+    | RParen :: t -> { expr = List []; rest = RParen :: t; t = (* TODO *) Types.Forall ([], Types.Int); env = Types.empty_type_env; } 
+
     (* Is it a function? *)
-    | Id "defun" :: t -> parse_functions t
+    | Id "defun" :: t -> parse_functions t env
     | _ -> begin
-        let (atom, rest) = parse_atoms program in
-        let (expr, rest') = parse_list_content rest in
+        let { expr = atom; rest; t; env; } = parse_atoms program env in
+        let { expr; rest = rest'; t = _; env = env'; } = parse_list_content rest env in
         match expr with
         (* If we got a list *)
-        | List l -> (List (atom :: l), rest')
+        (* This env seems ok but I wonder if I don't need to intersect it with the atom one *)
+        | List l -> { expr = List (atom :: l); rest = rest'; t; env = env'; }
         | Function _ | Atom _ -> failwith "Expected to find a list"
     end
 
-and parse_functions (program: Token.t list): expr * Token.t list = 
+and parse_functions (program: Token.t list) (env: Types.env): traversal = 
     match program with
     | Id i :: t -> 
             let (args, rest) = parse_args_list t in
-            let (body, rest') = parse_atoms rest in 
-            (Function (i, args, body), rest')
+            let { expr = body; rest = rest'; t = _; env = env'; } = parse_atoms rest env in 
+
+            (* Not sure about that, the env is not resolved and intersected *)
+            { expr = Function (i, args, body);
+              rest = rest';
+              (* WARNING: Dummy values *)
+              t = Types.Forall ([], Types.Func ([Types.Int], Types.Bool));
+              env = env';
+            } 
+
     | _ -> failwith "Expected to find an ID as function identifier."
 
 and parse_args_list (program: Token.t list): string list * Token.t list = 
@@ -81,28 +104,51 @@ and parse_arg_list_content (program: Token.t list): string list * Token.t list =
         arg::arg_tail, rest'
 
 (* Parse a single function argument *)
+(* WARNING: Shouldn't we add context and typing??? *)
 and parse_arg (program: Token.t list): string * Token.t list =
     match program with
     | Id i :: t -> (i, t)
     | _ -> failwith "Unexpected token, expected an identifier"
 
-and parse_atoms (program: Token.t list): expr * Token.t list = 
+(* OK *)
+and parse_atoms (program: Token.t list) (env: Types.env): traversal = 
     match program with
-    | LParen :: _ -> parse_lists program
-    | Id i :: t -> (Atom (Id i), t)
-    | Literal l :: t -> begin
-        match l with
-        | Int i -> (Atom (Int i), t)
-        | Str s -> (Atom (Str s), t)
-        | Bool b -> (Atom (Bool b), t)
+    | LParen :: _ -> parse_lists program env
+    | Id i :: t -> begin
+
+        (* Will throw an error if i is not defined (has no type) *)
+        let scheme = Types.lookup env i in
+        { expr = Atom (Id i); 
+          rest = t; 
+          env; 
+          t = scheme
+        }
+    end
+    | Literal l :: tail -> begin
+        match (l: Token.literal) with
+        | Int i -> { expr = Atom (Int i); 
+                     rest = tail; 
+                     env = env; 
+                     t = Forall ([], Types.Int); 
+                   }
+        | Str s -> { expr = Atom (Str s); 
+                     rest = tail; 
+                     env = env; 
+                     t = Forall ([], Types.Str); 
+                   }
+        | Bool b -> { expr = Atom (Bool b); 
+                      rest = tail; 
+                      env = env; 
+                      t = Forall ([], Types.Bool); 
+                    }
     end
     | _ -> failwith "Orphan closing parenthese `RPAREN`"
 ;;
 
-let rec parse (program: Token.t list): ast =
-    let (expr, rest) = parse_atoms program in
+let rec parse (ctx: Types.env) (program: Token.t list) =
+    let { expr; rest; t; env; } = parse_atoms program ctx in
     match rest with
-    | [] -> [expr]
-    | l -> expr :: (parse l)
+    | [] -> [(expr, t)]
+    | l -> (expr, t) :: (parse env l)
 ;;
 

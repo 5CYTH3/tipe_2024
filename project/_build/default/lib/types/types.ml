@@ -10,21 +10,24 @@ type t =
     [@@deriving show];;
 
 (* Here the list shows the bound variables of the expr *)
-type scheme = Forall of string list * t;;
+type scheme = Forall of string list * t
+[@@deriving show]
 
 exception TypeError of string
 
-module TypeMap = Map.Make(String);;
+(* Impossible to pretty-print? *)
+module TypeMap = Map.Make(String)
 
 (* String : Type *)
-type env = t TypeMap.t;;
+type env = scheme TypeMap.t
+
 let empty_type_env = TypeMap.empty;;
 
 let extend env k v = TypeMap.add k v env;;
 
-let lookup env k =
+let lookup (env: env) (k: string) =
     try TypeMap.find k env 
-    with Not_found -> failwith "the variable is not in scope: " ^ k
+    with Not_found -> failwith ("the variable is not in scope: " ^ k)
 ;;
 
 (* String : Type *)
@@ -42,7 +45,7 @@ let rec substitute s t =
     | t -> t
 ;;
 
-let rec compose_subst s1 s2 =
+let compose_subst s1 s2 =
     TypeMap.union (fun _ t _ -> Some t) (TypeMap.map (substitute s1) s2) s1
 ;;
 
@@ -89,10 +92,11 @@ let generalize env t =
   let vars = List.filter (fun v -> not (List.mem v (ftv_env env))) (ftv_ty t) in
   Forall (vars, t)
 
-let rec fresh_tyvar =
+let fresh_tyvar =
   let counter = ref 0 in
   fun () -> incr counter; TVar ("t" ^ string_of_int !counter)
 
-let rec instantiate (Forall (vars, t)) =
+(* "Given the context, this expression should be narrowed into:" -> polytype to monotype *)
+let instantiate (Forall (vars, t)) =
   let subst = List.fold_left (fun s v -> TypeMap.add v (fresh_tyvar ()) s) TypeMap.empty vars in
   substitute subst t
